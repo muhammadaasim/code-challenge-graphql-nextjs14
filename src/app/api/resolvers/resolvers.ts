@@ -31,7 +31,7 @@ const resolvers = {
     floor: async (_: unknown, { id }: { id: string }): Promise<Floor> => {
       try {
         const floor = await floorModel.findById(id);
-        return floor;
+        return floor as Floor;
       } catch (error) {
         console.error(error);
         throw new Error('Failed to fetch floor');
@@ -79,7 +79,7 @@ const resolvers = {
         const machine = await machineModel.findByIdAndUpdate(id, input, {
           new: true,
         });
-        return machine;
+        return machine as MachineDocument;
       } catch (error) {
         console.error(error);
         throw new Error('Failed to update machine');
@@ -103,10 +103,10 @@ const resolvers = {
 
         await machineModel.updateMany(
           { _id: { $in: machineIds } },
-          { $addToSet: { floors: updatedFloor._id } }
+          { $addToSet: { floors: updatedFloor?._id } }
         );
 
-        return updatedFloor;
+        return updatedFloor as Floor;
       } catch (error) {
         console.error(error);
         throw new Error('Failed to update floor');

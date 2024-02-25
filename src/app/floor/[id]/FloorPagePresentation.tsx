@@ -77,7 +77,7 @@ const FloorPagePresentation: React.FC<Props> = ({ data }) => {
           console.error(err);
         }
       }
-    },  5 * 60 * 1000);
+    },  500);
 
     return () => clearInterval(interval);
   }, [data?.floor?.machines, updateMachinePosition]);
